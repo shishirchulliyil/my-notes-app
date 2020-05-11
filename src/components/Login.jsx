@@ -6,7 +6,8 @@ function Login() {
     console.log("login button clicked");
     event.preventDefault();
     axios
-      .get("https://reqres.in/api/users/2")
+      .get("http://localhost:5000/users")
+      //   .get("https://reqres.in/api/users/2")
       .then(function (response) {
         // handle success
         console.log(response);
