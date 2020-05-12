@@ -1,28 +1,57 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import qs from "qs";
 
 function Login() {
+  const [user, setUser] = useState({
+    username: "",
+    password: "",
+  });
+
+  function onChangeInput(event) {
+    const { name, value } = event.target;
+    setUser((prevValue) => {
+      return {
+        ...prevValue,
+        [name]: value,
+      };
+    });
+  }
+
   function onClickLogin(event) {
-    console.log("login button clicked");
     event.preventDefault();
-    axios
-      .get("http://localhost:5000/users")
-      //   .get("https://reqres.in/api/users/2")
-      .then(function (response) {
-        // handle success
-        console.log(response);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      });
+    const userData = {
+      username: user.username,
+      password: user.password,
+    };
+    console.log("user sent==> " + user.username + " " + user.password);
+
+    const options = {
+      method: "POST",
+      headers: { "content-type": "application/x-www-form-urlencoded" },
+      data: qs.stringify(userData),
+      url: "http://localhost:5000/users",
+    };
+    axios(options);
   }
 
   return (
     <div className="container">
       <form>
-        <input name="username" placeholder="Username" type="text"></input>
-        <input name="password" placeholder="Password" type="password"></input>
+        <input
+          name="username"
+          placeholder="Username"
+          type="text"
+          onChange={onChangeInput}
+          value={user.username}
+        ></input>
+        <input
+          name="password"
+          placeholder="Password"
+          type="password"
+          onChange={onChangeInput}
+          value={user.password}
+        ></input>
         <button type="submit" onClick={onClickLogin}>
           Login
         </button>
