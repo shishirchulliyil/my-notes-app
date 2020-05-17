@@ -8,6 +8,7 @@ function Home() {
     <BrowserRouter>
       <div>
         <Switch>
+          <Route path="/" exact component={Login} />
           <Route path="/login" exact component={Login} />
           <Route path="/notes" exact component={App} />
         </Switch>
