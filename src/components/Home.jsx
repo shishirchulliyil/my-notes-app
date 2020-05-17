@@ -1,15 +1,18 @@
 import React from "react";
 import Login from "./Login";
-import Header from "./Header";
-import Footer from "./Footer";
+import App from "./App";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 function Home() {
   return (
-    <div>
-      <Header />
-      <Login />
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <div>
+        <Switch>
+          <Route path="/login" exact component={Login} />
+          <Route path="/notes" exact component={App} />
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 }
 

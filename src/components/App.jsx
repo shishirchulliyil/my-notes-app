@@ -1,20 +1,22 @@
 import React, { useState } from "react";
-import Header from "./Header";
-import Footer from "./Footer";
 import Note from "./Note";
 import CreateArea from "./CreateArea";
+import Header from "./Header";
+import Footer from "./Footer";
 
-function App() {
+function App(props) {
   const [notes, setNotes] = useState([]);
+  const { history } = props;
+  console.log(history);
 
   function addNote(newNote) {
-    setNotes(prevNotes => {
+    setNotes((prevNotes) => {
       return [...prevNotes, newNote];
     });
   }
 
   function deleteNote(id) {
-    setNotes(prevNotes => {
+    setNotes((prevNotes) => {
       return prevNotes.filter((noteItem, index) => {
         return index !== id;
       });
@@ -23,7 +25,7 @@ function App() {
 
   return (
     <div>
-      <Header />
+      <Header enableLogout={true} history={history} />
       <CreateArea onAdd={addNote} />
       {notes.map((noteItem, index) => {
         return (

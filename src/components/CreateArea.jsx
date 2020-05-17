@@ -6,7 +6,7 @@ import Zoom from "@material-ui/core/Zoom";
 function CreateArea(props) {
   const [note, setNote] = useState({
     title: "",
-    content: ""
+    content: "",
   });
 
   const [preview, setPreview] = useState(false);
@@ -17,10 +17,10 @@ function CreateArea(props) {
 
   function handleChange(event) {
     const { name, value } = event.target;
-    setNote(prevNote => {
+    setNote((prevNote) => {
       return {
         ...prevNote,
-        [name]: value
+        [name]: value,
       };
     });
   }
@@ -29,7 +29,7 @@ function CreateArea(props) {
     props.onAdd(note);
     setNote({
       title: "",
-      content: ""
+      content: "",
     });
     event.preventDefault();
     setPreview(false);

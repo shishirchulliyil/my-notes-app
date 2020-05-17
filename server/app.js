@@ -7,6 +7,7 @@ const userRouter = require("./routes/user-router");
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(cors());
 app.set("view engine", "ejs");
 

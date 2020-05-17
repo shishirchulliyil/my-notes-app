@@ -15,12 +15,17 @@ header {
   margin: auto -16px;
   padding: 16px 32px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  white-space: nowrap;
+  height: 80px;
 }
 
 header h1 {
   color: #fff;
   font-family: "McLaren", cursive;
   font-weight: 200;
+  width: 300px;
+  display: inline-block;
+  float: left;
 }
 
 .container {
@@ -46,7 +51,7 @@ form input {
   font-weight: 300;
 }
 
-form button {
+form button.btn-login {
   width: 250px;
   border-radius: 3px;
   margin: 0 auto 10px auto;
@@ -136,4 +141,22 @@ form.create-note button {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   outline: none;
+}
+
+form.form-logout {
+  display: inline-block;
+  padding: 0;
+  float: right;
+}
+
+form.form-logout button {
+  background: #fff;
+  color: #f5ba13;
+  width: 100px;
+  border-radius: 3px;
+  padding: 10px 15px;
+  text-align: center;
+  font-size: 18px;
+  border: 1px solid rgba(252, 252, 252, 0.4);
+  font-weight: 300;
 }
