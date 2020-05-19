@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Note from "./Note";
 import CreateArea from "./CreateArea";
 import Header from "./Header";
 import Footer from "./Footer";
+import { AuthContext } from "../Context/AuthContext";
+import { Redirect } from "react-router-dom";
 
 function App(props) {
   const [notes, setNotes] = useState([]);
   const { history } = props;
   console.log(history);
+
+  const { isAuthenticated, toggleAuth } = useContext(AuthContext);
+  console.log("App.jsx isAuthenticated: " + isAuthenticated);
 
   function addNote(newNote) {
     setNotes((prevNotes) => {
@@ -25,7 +30,8 @@ function App(props) {
 
   return (
     <div>
-      <Header enableLogout={true} history={history} />
+      {!isAuthenticated && <Redirect to="/login" />}
+      <Header enableLogout={true} />
       <CreateArea onAdd={addNote} />
       {notes.map((noteItem, index) => {
         return (

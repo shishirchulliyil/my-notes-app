@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import qs from "qs";
+import { AuthContext } from "../Context/AuthContext";
+import { Redirect } from "react-router-dom";
 
 function LoginForm(props) {
   const [user, setUser] = useState({
     username: "",
     password: "",
   });
+
+  const { isAuthenticated, toggleAuth } = useContext(AuthContext);
+  console.log("LoginForm.jsx isAuthenticated :" + isAuthenticated);
+
+  const { history } = props;
 
   function onChangeInput(event) {
     const { name, value } = event.target;
@@ -58,7 +65,8 @@ function LoginForm(props) {
         console.log(res.data.success);
         // if TRUE route to APP screen
         if (res.data.success) {
-          props.isLoggedIn(true);
+          toggleAuth(true);
+          history.push("/notes");
         }
       })
       .catch((err) => {
