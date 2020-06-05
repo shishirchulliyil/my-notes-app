@@ -1,16 +1,15 @@
 import React, { useState, useContext } from "react";
 import EmojiObjectsIcon from "@material-ui/icons/EmojiObjects";
-import { Redirect } from "react-router-dom";
-import { AuthContext } from "../Context/AuthContext";
+import { Redirect, useHistory } from "react-router-dom";
+import { checkExistingToken, removeCurrentToken } from "../useAuthToken";
 
-function Header(props) {
-  const { isAuthenticated, toggleAuth } = useContext(AuthContext);
-  console.log("Header.jsx isAuthenticated: " + isAuthenticated);
+function Header() {
+  const history = useHistory();
 
   function logOut(event) {
     event.preventDefault();
-    toggleAuth(false);
-    return <Redirect to="/login" />;
+    removeCurrentToken();
+    history.push("/login");
   }
 
   const enableLogout = (
@@ -28,7 +27,7 @@ function Header(props) {
           <EmojiObjectsIcon />
           My Notes
         </h1>
-        {props.enableLogout && enableLogout}
+        {checkExistingToken() && enableLogout}
       </header>
     </div>
   );

@@ -1,51 +1,25 @@
-import React, { useState, useContext } from "react";
-import Note from "./Note";
-import CreateArea from "./CreateArea";
-import Header from "./Header";
-import Footer from "./Footer";
-import { AuthContext } from "../Context/AuthContext";
-import { Redirect } from "react-router-dom";
+import React from "react";
+import Login from "./Login";
+import UserNotes from "./UserNotes";
 
-function App(props) {
-  const [notes, setNotes] = useState([]);
-  const { history } = props;
-  console.log(history);
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
-  const { isAuthenticated, toggleAuth } = useContext(AuthContext);
-  console.log("App.jsx isAuthenticated: " + isAuthenticated);
-
-  function addNote(newNote) {
-    setNotes((prevNotes) => {
-      return [...prevNotes, newNote];
-    });
-  }
-
-  function deleteNote(id) {
-    setNotes((prevNotes) => {
-      return prevNotes.filter((noteItem, index) => {
-        return index !== id;
-      });
-    });
+function App() {
+  function NoMatch({ location }) {
+    return (
+      <div>
+        <h3>404 {location.pathname} Not Found</h3>
+      </div>
+    );
   }
 
   return (
-    <div>
-      {!isAuthenticated && <Redirect to="/login" />}
-      <Header enableLogout={true} />
-      <CreateArea onAdd={addNote} />
-      {notes.map((noteItem, index) => {
-        return (
-          <Note
-            key={index}
-            id={index}
-            title={noteItem.title}
-            content={noteItem.content}
-            onDelete={deleteNote}
-          />
-        );
-      })}
-      <Footer />
-    </div>
+    <Router>
+      <Route path="/" exact component={Login} />
+      <Route path="/login" exact component={Login} />
+      <Route path="/userNotes" component={UserNotes} />
+      {/* <Route component={NoMatch} /> */}
+    </Router>
   );
 }
 

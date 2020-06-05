@@ -1,13 +1,13 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import LoginForm from "./LoginForm";
 import Header from "./Header";
 import Footer from "./Footer";
 
-function Login(props) {
+function Login() {
   return (
     <div>
       <Header />
-      <LoginForm history={props.history} />
+      <LoginForm />
       <Footer />
     </div>
   );

@@ -17,7 +17,7 @@ db.on("error", (err) => {
 });
 
 //Test Connection
-app.get("/info", (req, res) => {
+app.get("/", (req, res) => {
   console.log(req);
   res.send("Backend Server connection successful!");
 });

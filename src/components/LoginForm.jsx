@@ -1,19 +1,16 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import qs from "qs";
-import { AuthContext } from "../Context/AuthContext";
-import { Redirect } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
+import { checkExistingToken, setCurrentToken } from "../useAuthToken";
 
-function LoginForm(props) {
+function LoginForm() {
   const [user, setUser] = useState({
     username: "",
     password: "",
   });
 
-  const { isAuthenticated, toggleAuth } = useContext(AuthContext);
-  console.log("LoginForm.jsx isAuthenticated :" + isAuthenticated);
-
-  const { history } = props;
+  const history = useHistory();
 
   function onChangeInput(event) {
     const { name, value } = event.target;
@@ -63,15 +60,19 @@ function LoginForm(props) {
     })
       .then((res) => {
         console.log(res.data.success);
-        // if TRUE route to APP screen
+        // if TRUE route to User Notes screen
         if (res.data.success) {
-          toggleAuth(true);
-          history.push("/notes");
+          setCurrentToken(res.data);
+          history.push("/userNotes");
         }
       })
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  if (checkExistingToken()) {
+    return <Redirect to="userNotes" />;
   }
 
   return (
